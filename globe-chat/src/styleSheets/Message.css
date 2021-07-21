@@ -1,0 +1,10 @@
+.messageBody::before{
+    content:'';
+    display:block;
+    height:10vh;
+}
+.messageBody::after{
+    content:'';
+    display:block;
+    height:8vh;
+}

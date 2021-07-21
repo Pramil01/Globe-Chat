@@ -1,0 +1,23 @@
+.messageUser p{
+    text-align: left;
+    float: right;
+    color :snow;
+    width:40%;
+    background-color:turquoise;
+    word-wrap: break-word;
+    padding: 10px;
+    border-radius: 20px;
+    margin-right: 10px;
+}
+
+.messageSender p{
+    text-align: left;
+    float: left;
+    color :snow;
+    width:40%;
+    background-color:chartreuse;
+    word-wrap: break-word;
+    padding: 10px;
+    border-radius: 20px;
+    margin-left: 10px;
+}
