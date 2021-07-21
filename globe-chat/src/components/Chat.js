@@ -30,7 +30,7 @@ const Chat = ({name,addMessage}) => {
         return ()=>{
             socket.off();
         }
-    },[]);
+    });
 
     const sendMessage = (event)=>{
         event.preventDefault();
