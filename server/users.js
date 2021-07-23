@@ -1,4 +1,4 @@
-const users =  [];
+let users =  [];
 
 const addUser = ({id,name}) =>{
     name = name.trim().toLowerCase();
@@ -11,7 +11,7 @@ const addUser = ({id,name}) =>{
     return {user};
 }
 const removeUser = (id) =>{
-     users = users.filter((user)=>user.id!==id);
+    users = users.filter((user)=>user.id!==id);
  }
 
 const getUser = (id) =>users.find((user)=>user.id===id);

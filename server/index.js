@@ -20,9 +20,9 @@ io.on('connection',(socket)=>{
     socket.on('join',({name},callback)=>{
         const {error,user} = addUser({id:socket.id,name});
         if(error)return callback(error);
-
-        socket.emit('message',{user:'admin',text:`${user.name} welcome to the chat.`});
-        socket.broadcast.emit('message',{user:'admin',text:`${user.name} has joined the chat`})
+        console.log(`${user.name} joined`);
+        socket.emit('message',{user:'admin',text:`${name} welcome to the chat.`});
+        socket.broadcast.emit('message',{user:'admin',text:`${name} has joined the chat`})
 
         socket.join(user);
         callback();
@@ -34,12 +34,18 @@ io.on('connection',(socket)=>{
         callback();
     });
 
+    socket.on('askUser',()=>{
+        socket.emit('allUsers',getAllUsers());
+    });
+
 
     socket.on('disconnect',()=>{
-        console.log("user just left");
+        const user = getUser(socket.id);
+        removeUser(socket.id);
+        console.log(`${user.name} just left`,getAllUsers());
         socket.broadcast.emit('message',{user:'admin',text:`${user.name} has left the chat`})
-    })
-})
+    });
+});
 
 
 app.use(router);

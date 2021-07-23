@@ -1,20 +1,23 @@
 import ChatBox from "./ChatBox";
 import '../styleSheets/Message.css';
-import { connect } from "react-redux";
+import React, { useEffect, useRef } from "react";
 
 
-const MessageBody = ({messages,name}) => {
+const MessageBody = ({name,messages}) => {
+    const messagesEndRef = useRef(null);
+    const scrollToBottom = () => {
+        messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+    };
+    useEffect(scrollToBottom, [messages]);
     
+    console.log(messages);
     return (
-        <div style={{height:"100vh",overflow:"scroll"}} className="messageBody">
+        <div  className="messageBody">
             {messages.map((message,i)=><div key={i}><ChatBox message={message} name={name}/></div>)}
+            <div ref={messagesEndRef} />
         </div>
     )
 }
-const mapStateToProps =(state)=>{
-    return{
-       messages :state.messages
-    }
-}
 
-export default connect(mapStateToProps)(MessageBody);
+
+export default MessageBody;

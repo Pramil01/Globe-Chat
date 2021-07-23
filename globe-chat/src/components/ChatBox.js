@@ -1,24 +1,44 @@
-import {useState} from 'react';
 import "../styleSheets/ChatBox.css";
 
 const ChatBox = ({message:{user,text},name}) => {
 
-    const [checkCurrentUser,setCheckCurrentUser] = useState(false);
+    let checkCurrentUser = false;
 
     const trimName = name.trim().toLowerCase();
 
     if(user === trimName){
-        setCheckCurrentUser(true);
+        checkCurrentUser = true;
     }
 
     console.log(user,text);
+    if(user === 'admin'){
+        return (
+            <div className="messageAdmin">
+             <div className='innerAdmin'>
+             <p>{text}</p>
+             </div>
+        </div>
+        )
+    }
+
+    else if(checkCurrentUser){
+        return (
+            <div className="messageUser">
+             <div className='innerUser'>
+             <p><span style={{fontWeight:'bold',marginBottom:'3px'}}>{user}</span><br/>{text}</p>
+             </div>
+        </div>
+        )
+    }
+    else{
     return (
-        <div>
-             <div className={`message${checkCurrentUser ? 'User':'Sender'}`}>
-             <p>{name}<br/>{text}</p>
+        <div className="messageSender">
+             <div className='innerSender'>
+             <p><span style={{fontWeight:'bold',marginBottom:'3px'}}>{user}</span><br/>{text}</p>
              </div>
         </div>
     )
+    }
 }
 
 export default ChatBox

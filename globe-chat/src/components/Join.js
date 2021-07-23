@@ -24,7 +24,7 @@ const Join = ({enteredName}) => {
                     <div id="nameCondition" className="form-text text-white">Name should be 20 characters or less.</div>
                 </div>
                 <Link onClick={(e)=>validation(e)} to={`/chat?name=${name}`}>
-                    <button type="submit" className="btn btn-primary col-md-2 col-sm-3 col-6 ms-2 mt-2" onClick={()=>enteredName(name)}>Submit</button>
+                    <button type="submit" className="btn btn-primary col-md-2 col-sm-3 col-6 mt-2" onClick={()=>enteredName(name)}>Submit</button>
                 </Link>
                 </form>
             </div>

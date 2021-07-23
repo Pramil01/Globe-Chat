@@ -6,16 +6,9 @@ const enteredNameReducer = (enteredName='',action)=>{
     }
     return enteredName;
 }
-const addMessageReducer = (messages=[],action)=>{
-    if(action.type === 'ADD_MESSAGE'){
-        return [...messages,action.payload];
-    }
-    return messages;
-}
 
 
 
 export default combineReducers({
-    enteredName : enteredNameReducer,
-    messages :addMessageReducer
+    enteredName : enteredNameReducer
 });
