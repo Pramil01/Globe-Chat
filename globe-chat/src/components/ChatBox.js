@@ -4,13 +4,12 @@ const ChatBox = ({message:{user,text},name}) => {
 
     let checkCurrentUser = false;
 
-    const trimName = name.trim().toLowerCase();
+    const trimName = name.trim();
 
     if(user === trimName){
         checkCurrentUser = true;
     }
 
-    console.log(user,text);
     if(user === 'admin'){
         return (
             <div className="messageAdmin">

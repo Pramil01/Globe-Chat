@@ -21,12 +21,12 @@ io.on('connection',(socket)=>{
         const {error,user} = addUser({id:socket.id,name});
         if(error)return callback(error);
         console.log(`${user.name} joined`);
-        socket.emit('message',{user:'admin',text:`${name} welcome to the chat.`});
-        socket.broadcast.emit('message',{user:'admin',text:`${name} has joined the chat`})
+        socket.emit('message',{user:'admin',text:`${name} welcome to the chat.`,users:getAllUsers()});
+        socket.broadcast.emit('message',{user:'admin',text:`${name} has joined the chat`,users:getAllUsers()})
 
         socket.join(user);
         callback();
-    })
+    });
 
     socket.on('sendMessage',(message, callback)=>{
         const user = getUser(socket.id);
@@ -34,16 +34,11 @@ io.on('connection',(socket)=>{
         callback();
     });
 
-    socket.on('askUser',()=>{
-        socket.emit('allUsers',getAllUsers());
-    });
-
-
     socket.on('disconnect',()=>{
         const user = getUser(socket.id);
         removeUser(socket.id);
         console.log(`${user.name} just left`,getAllUsers());
-        socket.broadcast.emit('message',{user:'admin',text:`${user.name} has left the chat`})
+        socket.broadcast.emit('message',{user:'admin',text:`${user.name} has left the chat`,users:getAllUsers()})
     });
 });
 

@@ -1,7 +1,8 @@
+import "../styleSheets/MessageBox.css";
 const MessageBox = ({message,setMessage,sendMessage}) => {
 
     return (
-        <section className="bg-dark text-light p-1" style={style}>
+        <section className="message-box bg-dark text-light p-1">
         <div className="container">
         <div className="d-flex justify-content-around align-items-center">
             <div className="input-group news-input">
@@ -12,7 +13,7 @@ const MessageBox = ({message,setMessage,sendMessage}) => {
                 onKeyPress={(e)=>e.key==='Enter'&& sendMessage(e) }
                 />
             </div>
-            <i className="bi bi-telegram ps-2 pb-1" style={{fontSize:"40px"}}
+            <i className="bi bi-telegram ps-2 pb-1"
             onClick={(e)=> sendMessage(e)}
             >
             </i>
@@ -21,11 +22,5 @@ const MessageBox = ({message,setMessage,sendMessage}) => {
     </section>
     )
 }
-const style = {
-    position : "fixed",
-    bottom: "0px",
-    width:"100%"
-}
-
 
 export default MessageBox

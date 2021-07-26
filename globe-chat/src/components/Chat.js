@@ -1,4 +1,5 @@
 import Header from "./Header";
+import ActiveUsers from "./ActiveUsers";
 import MessageBox from "./MessageBox";
 import MessageBody from "./MessageBody";
 import { useEffect,useState } from "react";
@@ -15,8 +16,10 @@ const Chat = ({name}) => {
 
     useEffect(()=>{
         socket =io(ENDPOINT);
-        askUser();
-        socket.emit('join',{name},()=>{
+        socket.emit('join',{name},(error)=>{
+            if(error){
+                alert(error);
+            }
         })
         return ()=>{
             socket.emit('disconnect');
@@ -26,17 +29,15 @@ const Chat = ({name}) => {
 
     useEffect(()=>{
         socket.on('message',(message)=>{
-            setMessages([...messages,message]) ;
-            console.log(message);
+            setMessages([...messages,message]);
+            if(message.user === 'admin'){
+                setUsers(message.users);
+            }
         });
         return ()=>{
             socket.off();
         }
     },[messages]);
-
-    useEffect(()=>{
-        socket.on('allUsers',names=>setUsers(names));
-    },[users]);
 
     const sendMessage = (event)=>{
         event.preventDefault();
@@ -44,11 +45,11 @@ const Chat = ({name}) => {
             socket.emit('sendMessage',message,()=>setMessage(''))
         }
     }
-    const askUser =()=>socket.emit('askUser');
-    
+
     return (
         <div style={{backgroundColor:"#414a4c"}}>
-            <Header name={name} users={users} />
+            <Header name={name}/>
+            <ActiveUsers users={users}/>
             <MessageBody name={name} messages={messages}/>
             <MessageBox message={message} setMessage={setMessage} sendMessage={sendMessage}/>
         </div>

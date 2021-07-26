@@ -10,7 +10,6 @@ const MessageBody = ({name,messages}) => {
     };
     useEffect(scrollToBottom, [messages]);
     
-    console.log(messages);
     return (
         <div  className="messageBody">
             {messages.map((message,i)=><div key={i}><ChatBox message={message} name={name}/></div>)}

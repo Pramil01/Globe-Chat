@@ -1,7 +1,7 @@
 .messageBody::before{
     content:'';
     display:block;
-    height:10vh;
+    height:20vh;
 }
 .messageBody::after{
     content:'';

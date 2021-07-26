@@ -10,7 +10,16 @@ const Join = ({enteredName}) => {
             e.preventDefault();
             alert('Please enter a name to continue');
         }
-    }
+    //     console.log(users);
+    //     if(users.length!==0){
+    //         users.forEach(user => {
+    //             if(name === user){
+    //                 e.preventDefault();
+    //                 alert('Name Already Taken');
+    //             }
+    //         });
+    //     }
+        }
         return (
         <div className='bg-dark text-white align-items-center' style={{height:'100vh'}}>
             <header className="text-center py-5">
@@ -20,7 +29,7 @@ const Join = ({enteredName}) => {
                 <form className="row text-sm-start text-center align-items-center justify-content-sm-start justify-content-center pt-5">
                 <div className="mb-3 col-12">
                     <label htmlFor="inputName" className="form-label">Enter Your Name Here.</label>
-                    <input type="text" vlaue={name} onChange={(e)=>setName(e.target.value)} placeholder="Your Name" className="form-control" id="inputName" aria-describedby="nameCondition"/>
+                    <input type="text" value={name} onChange={(e)=>setName(e.target.value)} placeholder="Your Name" className="form-control" id="inputName" aria-describedby="nameCondition"/>
                     <div id="nameCondition" className="form-text text-white">Name should be 20 characters or less.</div>
                 </div>
                 <Link onClick={(e)=>validation(e)} to={`/chat?name=${name}`}>
@@ -32,4 +41,4 @@ const Join = ({enteredName}) => {
     )
 }
 
-export default connect(()=>{return {dummy:1}},{enteredName})(Join);
+export default connect(()=>{return {dummy:'1'}},{enteredName})(Join);
