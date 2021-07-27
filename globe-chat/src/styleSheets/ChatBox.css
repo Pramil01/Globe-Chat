@@ -62,3 +62,19 @@
     border-radius: 20px;
     margin-left: 10px;
 }
+
+@media screen and (max-width:991px){
+    .innerSender p,.innerUser p{
+        width:50%;
+    }
+}
+@media screen and (max-width:767px){
+    .innerSender p,.innerUser p{
+        width:60%;
+    }
+}
+@media screen and (max-width:575px){
+    .innerSender p,.innerUser p{
+        width:80%;
+    }
+}

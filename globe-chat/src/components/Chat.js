@@ -1,5 +1,4 @@
 import Header from "./Header";
-import ActiveUsers from "./ActiveUsers";
 import MessageBox from "./MessageBox";
 import MessageBody from "./MessageBody";
 import { useEffect,useState } from "react";
@@ -48,8 +47,7 @@ const Chat = ({name}) => {
 
     return (
         <div style={{backgroundColor:"#414a4c"}}>
-            <Header name={name}/>
-            <ActiveUsers users={users}/>
+            <Header name={name} users={users}/>
             <MessageBody name={name} messages={messages}/>
             <MessageBox message={message} setMessage={setMessage} sendMessage={sendMessage}/>
         </div>

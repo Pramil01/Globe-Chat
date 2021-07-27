@@ -1,7 +1,7 @@
 let users =  [];
 
 const addUser = ({id,name}) =>{
-    name = name.trim().toLowerCase();
+    name = name.trim();
     const existingUser = users.find((user)=>user.name===name);
     if(existingUser){
         return {error : 'Username is taken'}
