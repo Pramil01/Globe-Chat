@@ -17,16 +17,14 @@ const server = http.createServer(app);
 const io = socketio(server, corsOptions);
 
 io.on('connection',(socket)=>{
-    socket.on('join',({name},callback)=>{
-        const {error,user} = addUser({id:socket.id,name});
-        if(error)return callback(error);
+    socket.on('join',({name})=>{
+        const {user} = addUser({id:socket.id,name});
         console.log(`${user.name} joined`);
         socket.emit('message',{user:'admin',text:`${name} welcome to the chat.`,users:getAllUsers()});
         socket.broadcast.emit('message',{user:'admin',text:`${name} has joined the chat`,users:getAllUsers()})
 
         socket.join(user);
         socket.broadcast.emit('allUsers',{users:getAllUsers()});
-        callback();
     });
     socket.on('askUsers',()=>{
         socket.emit('allUsers',{users:getAllUsers()});
@@ -35,6 +33,12 @@ io.on('connection',(socket)=>{
         const user = getUser(socket.id);
         io.emit('message',{user:user.name,text:message});
         callback();
+    });
+    socket.on('typing',()=>{
+        const user = getUser(socket.id);
+        if(user){
+            socket.broadcast.emit('message',{user:'typing',text:`${user.name} is typing ...`});
+        }
     });
 
     socket.on('disconnect',()=>{
