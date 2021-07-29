@@ -18,7 +18,7 @@ const Header = ({name,users}) => {
                 <a className="nav-link" href="/">Customize</a>
                 </li>
                 <li className="nav-item">
-                <a className="nav-link" href="https://www.linkedin.com/in/pramil-kesarwani-10b374214" target="_blank">Meet The Creator</a>
+                <a className="nav-link" href="https://www.linkedin.com/in/pramil-kesarwani-10b374214" rel="noreferrer" target="_blank">Meet The Creator</a>
                 </li>
                 <span className="nav-item dropdown">
                 <li className="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">

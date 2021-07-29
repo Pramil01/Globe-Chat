@@ -1,24 +1,42 @@
 import {Link} from 'react-router-dom';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { connect } from 'react-redux';
 import { enteredName } from '../actions';
+import io from 'socket.io-client';
+
+let socket;
 
 const Join = ({enteredName}) => {
     const [name,setName] = useState('');
+    const [users,setUsers] = useState([]);
+    const ENDPOINT = 'localhost:5000';
+    useEffect(()=>{
+        socket =io(ENDPOINT);
+        socket.emit('askUsers');
+        return ()=>{
+            socket.off();
+        }
+    },[]);
+    useEffect(()=>{
+        socket.on('allUsers',({users})=>{
+            setUsers(users);
+        });
+    },[users]);
+
     const validation = (e)=>{
         if(!name){
             e.preventDefault();
             alert('Please enter a name to continue');
         }
-    //     console.log(users);
-    //     if(users.length!==0){
-    //         users.forEach(user => {
-    //             if(name === user){
-    //                 e.preventDefault();
-    //                 alert('Name Already Taken');
-    //             }
-    //         });
-    //     }
+        console.log(users);
+            if(users.length!==0){
+                users.forEach(user => {
+                    if(name === user.name){
+                        e.preventDefault();
+                        alert('Name Already Taken');
+                    }
+                });
+            }
         }
         return (
         <div className='bg-dark text-white align-items-center' style={{height:'100vh'}}>

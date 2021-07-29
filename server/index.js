@@ -25,9 +25,12 @@ io.on('connection',(socket)=>{
         socket.broadcast.emit('message',{user:'admin',text:`${name} has joined the chat`,users:getAllUsers()})
 
         socket.join(user);
+        socket.broadcast.emit('allUsers',{users:getAllUsers()});
         callback();
     });
-
+    socket.on('askUsers',()=>{
+        socket.emit('allUsers',{users:getAllUsers()});
+    });
     socket.on('sendMessage',(message, callback)=>{
         const user = getUser(socket.id);
         io.emit('message',{user:user.name,text:message});
@@ -37,8 +40,11 @@ io.on('connection',(socket)=>{
     socket.on('disconnect',()=>{
         const user = getUser(socket.id);
         removeUser(socket.id);
-        console.log(`${user.name} just left`,getAllUsers());
-        socket.broadcast.emit('message',{user:'admin',text:`${user.name} has left the chat`,users:getAllUsers()})
+        if(user){
+            console.log(`${user.name} just left`,getAllUsers());
+            socket.broadcast.emit('message',{user:'admin',text:`${user.name} has left the chat`,users:getAllUsers()})
+        }
+        socket.broadcast.emit('allUsers',{users:getAllUsers()});
     });
 });
 

@@ -15,10 +15,7 @@ const Chat = ({name}) => {
 
     useEffect(()=>{
         socket =io(ENDPOINT);
-        socket.emit('join',{name},(error)=>{
-            if(error){
-                alert(error);
-            }
+        socket.emit('join',{name},()=>{
         })
         return ()=>{
             socket.emit('disconnect');
