@@ -19,7 +19,6 @@ const io = socketio(server, corsOptions);
 io.on('connection',(socket)=>{
     socket.on('join',({name})=>{
         const {user} = addUser({id:socket.id,name});
-        console.log(`${user.name} joined`);
         socket.emit('message',{user:'admin',text:`${name} welcome to the chat.`,users:getAllUsers()});
         socket.broadcast.emit('message',{user:'admin',text:`${name} has joined the chat`,users:getAllUsers()})
 
@@ -45,7 +44,6 @@ io.on('connection',(socket)=>{
         const user = getUser(socket.id);
         removeUser(socket.id);
         if(user){
-            console.log(`${user.name} just left`,getAllUsers());
             socket.broadcast.emit('message',{user:'admin',text:`${user.name} has left the chat`,users:getAllUsers()})
         }
         socket.broadcast.emit('allUsers',{users:getAllUsers()});

@@ -9,6 +9,8 @@ let socket;
 const Join = ({enteredName}) => {
     const [name,setName] = useState('');
     const [users,setUsers] = useState([]);
+    const [width, setWidth] = useState(window.innerWidth);
+
     const ENDPOINT = 'localhost:5000';
     useEffect(()=>{
         socket =io(ENDPOINT);
@@ -22,13 +24,18 @@ const Join = ({enteredName}) => {
             setUsers(users);
         });
     },[users]);
-
+    const updateWidth = () => {
+        setWidth(window.innerWidth);
+      };
+    useEffect(() => {
+        window.addEventListener("resize", updateWidth);
+        return () => window.removeEventListener("resize", updateWidth);
+    });
     const validation = (e)=>{
         if(!name){
             e.preventDefault();
             alert('Please enter a name to continue');
         }
-        console.log(users);
             if(users.length!==0){
                 users.forEach(user => {
                     if(name === user.name){
@@ -39,9 +46,9 @@ const Join = ({enteredName}) => {
             }
         }
         return (
-        <div className='bg-dark text-white align-items-center' style={{height:'100vh'}}>
-            <header className="text-center py-5">
-                <h1>Welcome to Global Chat</h1>
+        <div className='bg-dark text-white align-items-center p-5' style={{height:'100vh'}}>
+            <header className="text-center py-3">
+                <h1><img src="./Globe.png" alt="Globe" height="150px" width="150px"/>{width<=585 && <br/>}Welcome to Global Chat</h1>
             </header>
             <div className='container'>
                 <form className="row text-sm-start text-center align-items-center justify-content-sm-start justify-content-center pt-5">

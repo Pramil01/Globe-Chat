@@ -1,10 +1,11 @@
+import { connect } from "react-redux";
 import "../styleSheets/MessageBox.css";
-const MessageBox = ({message,setMessage,sendMessage,typer}) => {
+const MessageBox = ({message,setMessage,sendMessage,typer,colors}) => {
 
     return (
-        <section className="message-box bg-dark text-light p-1">
+        <section className="message-box text-light p-1" style={{backgroundColor:colors.headerColor}}>
         <div className="container">
-        <span className="typing text-white" style={{color:'white'}}>{typer}</span>
+        <span className="typing text-white" style={{color:colors.headerTextColor}}>{typer}</span>
         <div className="d-flex justify-content-around align-items-center">
             <div className="input-group news-input">
                 <input type="text" className="form-control"
@@ -24,4 +25,11 @@ const MessageBox = ({message,setMessage,sendMessage,typer}) => {
     )
 }
 
-export default MessageBox
+const mapStateToProps = (state)=>{
+    return {
+        colors : state.customize
+    }
+}
+
+
+export default connect(mapStateToProps)(MessageBox)

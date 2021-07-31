@@ -1,6 +1,7 @@
+import { connect } from "react-redux";
 import "../styleSheets/ChatBox.css";
 
-const ChatBox = ({message:{user,text},name}) => {
+const ChatBox = ({message:{user,text},name,colors}) => {
 
     let checkCurrentUser = false;
 
@@ -14,7 +15,7 @@ const ChatBox = ({message:{user,text},name}) => {
         return (
             <div className="messageAdmin">
              <div className='innerAdmin'>
-             <p>{text}</p>
+             <p style={{color:colors.bodyTextColor}}>{text}</p>
              </div>
         </div>
         )
@@ -24,7 +25,7 @@ const ChatBox = ({message:{user,text},name}) => {
         return (
             <div className="messageUser">
              <div className='innerUser'>
-             <p><span style={{fontWeight:'bold',marginBottom:'3px'}}>{user}</span><br/>{text}</p>
+             <p style={{backgroundColor:colors.senderBox,color:colors.messageColor}}><span style={{fontWeight:'bold',marginBottom:'3px'}}>{user}</span><br/>{text}</p>
              </div>
         </div>
         )
@@ -33,11 +34,16 @@ const ChatBox = ({message:{user,text},name}) => {
     return (
         <div className="messageSender">
              <div className='innerSender'>
-             <p><span style={{fontWeight:'bold',marginBottom:'3px'}}>{user}</span><br/>{text}</p>
+             <p style={{backgroundColor:colors.receiverBox,color:colors.messageColor}}><span style={{fontWeight:'bold',marginBottom:'3px'}}>{user}</span><br/>{text}</p>
              </div>
         </div>
     )
     }
 }
+const mapStateToProps = (state)=>{
+    return {
+        colors : state.customize
+    }
+}
 
-export default ChatBox
+export default connect(mapStateToProps)(ChatBox);

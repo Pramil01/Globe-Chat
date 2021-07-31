@@ -4,4 +4,11 @@ return {
     payload:name
 }
 }
-
+export const customization = (customize)=>{
+    return {
+        type:'CUSTOMIZE',
+        payload:customize
+    }
+}
+    
+    

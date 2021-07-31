@@ -1,13 +1,14 @@
 import Header from "./Header";
 import MessageBox from "./MessageBox";
 import MessageBody from "./MessageBody";
+import Modal from "./Modal";
 import { useEffect,useState,useRef } from "react";
 import {Redirect} from 'react-router-dom';
 import { connect } from "react-redux";
 import io from 'socket.io-client';
 
 
-const Chat = ({name}) => {
+const Chat = ({name,colors}) => {
     const [message,setMessage] = useState('');
     const [typer,setTyper] = useState('');
     const [messages,setMessages] = useState([]);
@@ -28,7 +29,7 @@ const Chat = ({name}) => {
         socket.current.on('message',(message)=>{
             if(message.user === 'typing'){
                 setTyper(message.text);
-                setTimeout(()=>setTyper(''),1800);
+                setTimeout(()=>setTyper(''),3000);
             } else{
                 setMessages([...messages,message]);
                 if(message.user === 'admin'){
@@ -56,8 +57,9 @@ const Chat = ({name}) => {
     }
     
     return (
-        <div style={{backgroundColor:"#414a4c"}}>
+        <div style={{backgroundColor:colors.bodyColor}}>
             {!name && <Redirect to="/"/>}
+            <Modal />
             <Header name={name} users={users}/>
             <MessageBody name={name} messages={messages}/>
             <MessageBox message={message} setMessage={setMessage} sendMessage={sendMessage} typer={typer}/>
@@ -67,7 +69,8 @@ const Chat = ({name}) => {
 
 const mapStateToProps =(state)=>{
     return{
-        name : state.enteredName
+        name : state.enteredName,
+        colors : state.customize
     }
 }
 

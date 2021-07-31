@@ -1,3 +1,3 @@
 # Globe-Chat
-A real time chatting appliction using react , redux , node , express and socket.io
-//Resolving Bugs
+A real time chatting application using react and redux for client side  and node and express for back-end and socket.io for communicating between them and for real time messaging .
+
