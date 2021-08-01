@@ -1,6 +1,6 @@
 import { connect } from "react-redux"
 import '../styleSheets/Header.css'
-const Header = ({name,users,colors}) => {
+const Header = ({users,colors}) => {
     return (
         <div className="navbar navbar-expand-lg navbar-dark pb-3 fixed-top" style={{backgroundColor : colors.headerColor}}>
         <div className="container-fluid px-5">
@@ -12,11 +12,6 @@ const Header = ({name,users,colors}) => {
             <span className="navbar-toggler-icon"></span>
             </button>
             <div className="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul className="navbar-nav">
-                <li className="nav-item " style={{color:colors.headerTextColor}}>
-                {name}
-                </li>
-            </ul>
                 <ul className="navbar-nav ms-auto">
                 <li className="nav-item">
                 <button className="nav-link btn customize" style={{border:`2px ${colors.headerColor}`,color:colors.headerTextColor}}  data-bs-toggle="modal" data-bs-target="#customModal">Customize</button>

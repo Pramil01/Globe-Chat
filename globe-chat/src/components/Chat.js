@@ -14,7 +14,7 @@ const Chat = ({name,colors}) => {
     const [messages,setMessages] = useState([]);
     const [users,setUsers] = useState([]);
     let socket = useRef(null);
-    const ENDPOINT = 'localhost:5000';
+    const ENDPOINT = 'https://global-chat001.herokuapp.com/';
 
     useEffect(()=>{
         socket.current =io(ENDPOINT);
@@ -29,7 +29,6 @@ const Chat = ({name,colors}) => {
         socket.current.on('message',(message)=>{
             if(message.user === 'typing'){
                 setTyper(message.text);
-                setTimeout(()=>setTyper(''),3000);
             } else{
                 setMessages([...messages,message]);
                 if(message.user === 'admin'){
@@ -49,6 +48,11 @@ const Chat = ({name,colors}) => {
         }
     },[message]);
 
+    useEffect(()=>{
+        const timeOutId = setTimeout(()=>setTyper(''),3000);
+        return ()=>clearTimeout(timeOutId);
+    },[typer]);
+
     const sendMessage = (event)=>{
         event.preventDefault();
         if(message){
@@ -60,7 +64,7 @@ const Chat = ({name,colors}) => {
         <div style={{backgroundColor:colors.bodyColor}}>
             {!name && <Redirect to="/"/>}
             <Modal />
-            <Header name={name} users={users}/>
+            <Header users={users}/>
             <MessageBody name={name} messages={messages}/>
             <MessageBox message={message} setMessage={setMessage} sendMessage={sendMessage} typer={typer}/>
         </div>

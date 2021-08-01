@@ -1,16 +1,17 @@
 const express = require('express');
 const socketio = require('socket.io');
 const http = require('http');
+const cors = require('cors');
 const {addUser,removeUser,getUser,getAllUsers} = require('./users');
 corsOptions={
     cors: true,
-    origins:["http://localhost:3000"],
+    origins:["https://git.heroku.com/global-chat001.git"],
 }
 
 const PORT = process.env.PORT || 5000;
 
 const router = require('./router');
-const moment = require('moment');
+const moment = require('moment-timezone');
 
 
 const app = express();
@@ -31,7 +32,7 @@ io.on('connection',(socket)=>{
     });
     socket.on('sendMessage',(message, callback)=>{
         const user = getUser(socket.id);
-        io.emit('message',{user:user.name,text:message,time:moment().format('h:mm a')});
+        io.emit('message',{user:user.name,text:message,time:moment.tz('Asia/Colombo').format('h:mm a')});
         callback();
     });
     socket.on('typing',()=>{
@@ -53,5 +54,6 @@ io.on('connection',(socket)=>{
 
 
 app.use(router);
+app.use(cors());
 
 server.listen(PORT,()=>console.log(`The server is running on ${PORT}`));
