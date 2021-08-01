@@ -10,6 +10,7 @@ corsOptions={
 const PORT = process.env.PORT || 5000;
 
 const router = require('./router');
+const moment = require('moment');
 
 
 const app = express();
@@ -30,7 +31,7 @@ io.on('connection',(socket)=>{
     });
     socket.on('sendMessage',(message, callback)=>{
         const user = getUser(socket.id);
-        io.emit('message',{user:user.name,text:message});
+        io.emit('message',{user:user.name,text:message,time:moment().format('h:mm a')});
         callback();
     });
     socket.on('typing',()=>{

@@ -1,8 +1,9 @@
 import { connect } from "react-redux";
+import ReactEmoji from 'react-emoji';
 import "../styleSheets/ChatBox.css";
 
-const ChatBox = ({message:{user,text},name,colors}) => {
-
+const ChatBox = ({message:{user,text,time},name,colors}) => {
+    
     let checkCurrentUser = false;
 
     const trimName = name.trim();
@@ -25,7 +26,7 @@ const ChatBox = ({message:{user,text},name,colors}) => {
         return (
             <div className="messageUser">
              <div className='innerUser'>
-             <p style={{backgroundColor:colors.senderBox,color:colors.messageColor}}><span style={{fontWeight:'bold',marginBottom:'3px'}}>{user}</span><br/>{text}</p>
+             <p style={{backgroundColor:colors.senderBox,color:colors.messageColor}}><span style={{fontWeight:'bold',marginBottom:'3px'}}>{user}</span> {time}<br/>{ReactEmoji.emojify(text)}</p>
              </div>
         </div>
         )
@@ -34,7 +35,7 @@ const ChatBox = ({message:{user,text},name,colors}) => {
     return (
         <div className="messageSender">
              <div className='innerSender'>
-             <p style={{backgroundColor:colors.receiverBox,color:colors.messageColor}}><span style={{fontWeight:'bold',marginBottom:'3px'}}>{user}</span><br/>{text}</p>
+             <p style={{backgroundColor:colors.receiverBox,color:colors.messageColor}}><span style={{fontWeight:'bold',marginBottom:'3px'}}>{user}</span> {time}<br/>{ReactEmoji.emojify(text)}</p>
              </div>
         </div>
     )
