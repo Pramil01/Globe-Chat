@@ -5,7 +5,7 @@ const cors = require('cors');
 const {addUser,removeUser,getUser,getAllUsers} = require('./users');
 corsOptions={
     cors: true,
-    origins:["https://git.heroku.com/global-chat001.git"],
+    origins:["https://globe-chat.netlify.app"],
 }
 
 const PORT = process.env.PORT || 5000;
