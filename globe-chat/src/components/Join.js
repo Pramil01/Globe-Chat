@@ -48,7 +48,7 @@ const Join = ({enteredName}) => {
             }
         }
         return (
-        <div className='bg-dark text-white align-items-center p-5' style={{height:`${height}px`}}>
+        <div className='bg-dark text-white align-items-center p-5' style={{position:'absolute',right:'0px',left:'0px',minHeight:`${height}px`}}>
             <header className="text-center py-3">
                 <h1><img src="./Globe.png" alt="Globe" height="150px" width="150px"/>{width<=585 && <br/>}Welcome to Global Chat</h1>
             </header>
