@@ -14,7 +14,7 @@ const Chat = ({name,colors}) => {
     const [messages,setMessages] = useState([]);
     const [users,setUsers] = useState([]);
     let socket = useRef(null);
-    const ENDPOINT = 'https://global-chat001.herokuapp.com/';
+    const ENDPOINT = 'localhost:5000';
 
     useEffect(()=>{
         socket.current =io(ENDPOINT);
